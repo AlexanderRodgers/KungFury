@@ -15,4 +15,8 @@ public class NamedThing {
         return name + ": " + description;
     }
     
+    
+    public String getDesc() {
+        return description;
+    }
 }
