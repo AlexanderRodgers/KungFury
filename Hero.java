@@ -4,9 +4,15 @@ public class Hero extends Person {
     
     public int xcord;
     public int ycord;
+    public int xmax;
+    public int ymax;
     
     public Hero(String name, String desc, double s, double h, ArrayList<Item> items) {
         super(name, desc, s, h, items);
+    }
+    
+    public Hero(String name, String desc, double s, double h) {
+        super(name, desc, s, h);
     }
     
     @Override
@@ -30,11 +36,11 @@ public class Hero extends Person {
         ycord = y;
     }
     
-    public void getX() {
+    public int getX() {
         return xcord;
     }
     
-    public void voidY() {
+    public int getY() {
         return ycord;
     }
     
@@ -43,8 +49,12 @@ public class Hero extends Person {
     }
 
     public void moveSouth () {
-        if (ycord > 0)
-            ycord--;
+        if (ycord > 0) {
+           ycord--;
+        } else {
+            System.out.println("You can't move that way!");
+        }
+            
     }
 
     public void moveWest() {
@@ -55,4 +65,10 @@ public class Hero extends Person {
     public void moveEast() {
         xcord++;
     }
+    
+    public void updateMax(int x, int y) {
+        xmax = x;
+        ymax = y;
+    }
+    
 }

@@ -12,6 +12,12 @@ public abstract class Person extends NamedThing {
         this.items = items;
     }
     
+    public Person(String name, String desc, double s, double h) {
+        super(name, desc);
+        strength = s;
+        health = h;
+    }
+    
     public double getHealth() {
         return health;
     }
