@@ -12,7 +12,7 @@ public class Item extends NamedThing {
     
     
     //Items with special stats.
-    public Item(Strin name, Strin desc, double defense, double attackStrength, double sStrength, double sHealth) {
+    public Item(String name, String desc, double defense, double attackStrength, double sStrength, double sHealth) {
         super(name, desc);
         this.defense = defense;
         this.attackStrength = attackStrength;

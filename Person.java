@@ -3,8 +3,6 @@ import java.util.ArrayList;
 public abstract class Person extends NamedThing {
     protected double strength;
     protected double health;
-    protected double sStrength;
-    protected double sHealth;
     protected ArrayList<Item> items = new ArrayList<Item>();
     
     public Person(String name, String desc, double s, double h, ArrayList<Item> items) {

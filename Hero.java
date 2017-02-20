@@ -6,6 +6,7 @@ public class Hero extends Person {
     public int ycord;
     public int xmax;
     public int ymax;
+    public boolean isDead = false;
 
     public Hero(String name, String desc, double s, double h, ArrayList<Item> items) {
         super(name, desc, s, h, items);
@@ -17,9 +18,10 @@ public class Hero extends Person {
 
     @Override
     public String hurt(double power) {
-        if(power - health < 0)
+        if(power - health < 0) {
+            isDead = true;
             return (this.getName() + " is dead!");
-        else {
+        } else {
             health -= power;
             return (this.getName() + "\'s health is now: " + this.getHealth());
         }
