@@ -18,7 +18,7 @@ public class Place extends NamedThing {
         return items;
     }
     
-    public ArrayList getPeople() {
+    public ArrayList<Person> getPeople() {
         return people;
     }
     

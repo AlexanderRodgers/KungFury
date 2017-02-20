@@ -24,7 +24,7 @@ public class FuryTest {
         boolean playAgain = true;
 
         p1.setCoords(0, 0);
-        
+
         //Must be a square
         p1.updateMax(arena1.length, arena1[0].length);
 
@@ -45,6 +45,10 @@ public class FuryTest {
             System.out.println();
 
             System.out.println("Where do you want to go?");
+            move = scan.next();
+            filterAll(move);
+            System.out.println(generateMap());
+
             move = scan.next();
             filterAll(move);
             System.out.println(generateMap());
@@ -87,6 +91,7 @@ public class FuryTest {
             p1.moveEast();
         }
         else {
+            //Now useless, saving for cleanup.
             System.out.println("Where do you want to go again?");
             move = scan.next();
             changeLoc(move);
@@ -102,33 +107,65 @@ public class FuryTest {
 
     public static void filterAll(String input) {
         if(input.length() >= checkLength) {
-        if(askHelp(input)) {
-            System.out.println(help);
+            if(askHelp(input)) {
+                System.out.println(help);
+            }
+            else if(
+            (input.substring(0, 3).equalsIgnoreCase("nor")) ||
+            (input.substring(0, 3).equalsIgnoreCase("sou")) ||
+            (input.substring(0, 3).equalsIgnoreCase("eas")) ||
+            (input.substring(0, 3).equalsIgnoreCase("wes"))
+            ) {
+                changeLoc(input);
+            }
+
+            else if(input.substring(0,3).equalsIgnoreCase("inv")) {
+                printItems();
+            }
+            else if(input.substring(0, 3).equalsIgnoreCase("fig")) {
+                //Stopped here
+                printPeople1();
+            }
+            else {
+                System.out.println("What do you want to do?");
+                move = scan.next();
+                filterAll(move); 
+            }
+            //more else
+
+        } else {
+            System.out.println("Can you enter the command again?");
+            move = scan.next();
+            filterAll(move);
         }
-        else if(
-        (input.substring(0, 3).equalsIgnoreCase("nor")) ||
-        (input.substring(0, 3).equalsIgnoreCase("sou")) ||
-        (input.substring(0, 3).equalsIgnoreCase("eas")) ||
-        (input.substring(0, 3).equalsIgnoreCase("wes"))
-        ) {
-            changeLoc(input);
+    }
+
+    public static void printItems() {
+        if(furyItems.size() == 0) {
+            System.out.println("You don't have any items.");
+        } else {
+
+            String invList = "Your inventory is: ";
+            for(int i = 0; i < furyItems.size(); i++){
+                invList += "-" + furyItems.get(i).toString() + "\n";
+            }
+
         }
-        
-        else if(input.substring(0,3).equalsIgnoreCase("inv")) {
+    }
+
+    public static void printPeople1() {
+        ArrayList<Person> inRoom = arena1[p1.getX()][p1.getY()].getPeople();
+
+        if(inRoom.size() == 0) {
+            System.out.println("There is no one here.");
+        } else {
+
+            String peopleInRoom = "People here: ";
+            for(int i = 0; i < inRoom.size(); i++) {
+                peopleInRoom += inRoom.get(i).toString();
+            }
             
         }
-        
-        else {
-        System.out.println("What do you want to do?");
-        move = scan.next();
-        filterAll(move); 
-        }
-        //more else
-        
-    } else {
-        System.out.println("What do you want to do?");
-        move = scan.next();
-        filterAll(move);
     }
-    }
+
 }

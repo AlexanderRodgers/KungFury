@@ -86,6 +86,10 @@ public class Hero extends Person {
         ymax = y;
     }
 
+    public boolean checkIfDead() {
+        return isDead;
+    }
+    
     public String outOfArena() {
         return "You can't move that way!\n";
     }
