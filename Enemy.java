@@ -8,6 +8,10 @@ public class Enemy extends Person {
         this.heldItems = heldItems; 
     }
     
+    public Enemy(String name, String desc, double s, double h) {
+        super(name, desc, s, h);
+    }
+    
     public String itemsInHand() {
         String itemsList = "Items in hand:\n";
         for(int i = 0; i < heldItems.size(); i++)

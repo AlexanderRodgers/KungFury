@@ -1,10 +1,12 @@
 #BlueJ class context
 comment0.params=name\ desc\ s\ h\ items\ heldItems
 comment0.target=Enemy(java.lang.String,\ java.lang.String,\ double,\ double,\ java.util.ArrayList,\ java.util.ArrayList)
-comment1.params=
-comment1.target=java.lang.String\ itemsInHand()
-comment2.params=power
-comment2.target=java.lang.String\ hurt(double)
-comment3.params=addedHealth
-comment3.target=java.lang.String\ heal(double)
-numComments=4
+comment1.params=name\ desc\ s\ h
+comment1.target=Enemy(java.lang.String,\ java.lang.String,\ double,\ double)
+comment2.params=
+comment2.target=java.lang.String\ itemsInHand()
+comment3.params=power
+comment3.target=java.lang.String\ hurt(double)
+comment4.params=addedHealth
+comment4.target=java.lang.String\ heal(double)
+numComments=5
