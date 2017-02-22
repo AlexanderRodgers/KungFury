@@ -29,7 +29,7 @@ public class FuryTest {
         //Need to add a heal command
         arena1[1][2] = new Place("the hospital", "Heal up");
         arena1[2][0] = new Place("he home of the president", "Trump");
-        arena1[2][1] = new Place("your house", "A lovely little place");
+        arena1[2][1] = new Place("your housfe", "A lovely little place");
         arena1[2][2] = new Place("the arcade", "It's full of stuff.");
 
         System.out.print("\f");
@@ -37,7 +37,7 @@ public class FuryTest {
         p1.setCoords(2, 1);
 
         //Must be a square
-        p1.updateMax(arena1.length, arena1[0].length);
+        p1.updateMax(arena1.length-1, arena1[2].length-1);
 
         String titleScreen = "Kung Fury: The video game";
         System.out.print("\f");
@@ -60,8 +60,10 @@ public class FuryTest {
             move = scan.next();
             filterAll(move);
             while(hasEnemy()) {
+                
                 //Stopped here? I don't remember.
                 System.out.println("You run into " + enemyInRoom().toString() + "\nWhat do you do?");
+                move = scan.next();
 
                 if(p1.checkIfDead())
                     isAlive = false;
@@ -181,28 +183,31 @@ public class FuryTest {
         } else {
             System.out.println("What are you going to use?");
             int numWeaps = 0;
-            ArrayList<String> wepNames = new ArrayList<String>();
+            ArrayList<Item> wepNames = new ArrayList<Item>();
             for(int i = 0; i < furyItems.size(); i++) {
                 if(furyItems.get(i) instanceof Weapon) {
-                    wepNames.add(furyItems.get(i).getName());
+                    wepNames.add(furyItems.get(i));
                     System.out.println("-" + furyItems.get(i) + "\n");
                 }
             }
 
+            boolean moveValid = false;
             move = scan.next();
-            //This logic in the if(move != null) is flawed, I need to go back and think about it.
-            if(move != null) {
+            
                 for(int i = 0; i < wepNames.size(); i++) {
                     
                     if(move.equalsIgnoreCase(wepNames.get(i).getName())) {
-                        //Need to be able to fight here.
+                        //Here is where I stopped.
+                        moveValid = true;
+                        System.out.println(wepNames.get(i).getName());
                     }
+                    
                 }
-            }
-            else {
-                fight();
-            }
-
+                
+                if(!moveValid) {
+                    fight();
+                }
+                
         }
     }
 
@@ -224,6 +229,7 @@ public class FuryTest {
                 if(enemies.get(i) instanceof Enemy)
                     return enemies.get(i);
             }
+            //Why does this do this.
             return enemies.get(0);
 
         }
@@ -235,6 +241,14 @@ public class FuryTest {
             totalInfo += "You have " + p1.getHealth() + " health\n";
             totalInfo += "You have " + furyItems.size() + " items in your inventory.\n";
             return totalInfo;
+        }
+        
+        public void enemyAttackPlayer() {
+            //This doesn't relate but I want to fix the method that calls the weapons you can use to fight and gives back all their stats.
+            Person guy = enemyInRoom();
+            p1.hurt(guy.getStrength());
+            System.out.println("You were attacked by " + guy.getName());
+            System.out.println("Your health is now: " + p1.getHealth());
         }
 
     }
