@@ -9,6 +9,8 @@ public class FuryTest {
     static boolean canMove = true;
     static Scanner scan = new Scanner(System.in);
     static int checkLength = 3;
+    static String noFight = "Sorry, you can't move while there are enemies in the room!";
+    static boolean firstCheck = true;
 
     static String help = "Commands:\n-North\n-South\n-East\n-West\n-Inv\n-Look\n-Fight\n-Health\n-Info";
 
@@ -29,7 +31,7 @@ public class FuryTest {
         //Need to add a heal command
         arena1[1][2] = new Place("the hospital", "Heal up");
         arena1[2][0] = new Place("he home of the president", "Trump");
-        arena1[2][1] = new Place("your housfe", "A lovely little place");
+        arena1[2][1] = new Place("your house", "A lovely little place");
         arena1[2][2] = new Place("the arcade", "It's full of stuff.");
 
         System.out.print("\f");
@@ -55,19 +57,32 @@ public class FuryTest {
             System.out.println(generateMap());
             System.out.println();
 
-            System.out.println("You are in " + arena1[p1.getX()][p1.getY()].toString() + "\n");
+            System.out.println("You are in " + getArena().toString() + "\n");
             System.out.println("Where do you want to go?");
             move = scan.next();
             filterAll(move);
             while(hasEnemy()) {
-                
+
                 //Stopped here? I don't remember.
-                System.out.println("You run into " + enemyInRoom().toString() + "\nWhat do you do?");
+                firstCheck = true;
+                if(firstCheck)
+                    System.out.println("You run into " + getArena().enemyInRoom().toString() + "\nWhat do you do?");
+                firstCheck = false;
                 move = scan.next();
+                while(move.equalsIgnoreCase("north") ||
+                move.equalsIgnoreCase("south") ||
+                move.equalsIgnoreCase("west") ||
+                move.equalsIgnoreCase("east") && !canMove) {
+                    System.out.println("You can't move while enemies are nearby!");
+                    move = scan.next();
+                }
+
+                filterAll(move);
 
                 if(p1.checkIfDead())
                     isAlive = false;
             }
+            
             if(p1.checkIfDead())
                 isAlive = false;
         }
@@ -121,6 +136,10 @@ public class FuryTest {
         return false;
     }
 
+    public static Place getArena() {
+        return arena1[p1.getX()][p1.getY()];
+    }
+
     public static void filterAll(String input) {
         if(input.length() >= checkLength) {
             if(askHelp(input)) {
@@ -136,9 +155,9 @@ public class FuryTest {
             }
 
             else if(input.substring(0,3).equalsIgnoreCase("inv")) {
-                printItems();
+                arena1[p1.getX()][p1.getY()].printItems();
             }
-            else if(input.substring(0, 3).equalsIgnoreCase("fight")) {
+            else if(input.substring(0, 3).equalsIgnoreCase("fig")) {
                 //Stopped here
                 fight();
             }
@@ -147,6 +166,9 @@ public class FuryTest {
             }
             else if(input.substring(0, 3).equalsIgnoreCase("inf")) {
                 System.out.println(getInfo());
+            }
+            else if(input.substring(0, 3).equalsIgnoreCase("loo")) {
+                System.out.println(getArena().look());
             }
             else {
                 System.out.println("What do you want to do?");
@@ -162,93 +184,68 @@ public class FuryTest {
         }
     }
 
-    public static void printItems() {
-        if(furyItems.size() == 0) {
-            System.out.println("You don't have any items.");
-        } else {
-
-            String invList = "Your inventory is: ";
-            for(int i = 0; i < furyItems.size(); i++){
-                invList += "-" + furyItems.get(i).toString() + "\n";
-            }
-            System.out.println(invList);
-        }
-    }
-
+    //The fight method is not currently working.
+    
     public static void fight() {
-        ArrayList<Person> inRoom = arena1[p1.getX()][p1.getY()].getPeople();
+        //Edited this to work with place
+        Enemy inRoom = ((Enemy)getArena().enemyInRoom());
 
-        if(inRoom.size() == 0) {
+        if(inRoom.getName() == null) {
             System.out.println("There is no one here to fight.");
         } else {
-            System.out.println("What are you going to use?");
-            int numWeaps = 0;
-            ArrayList<Item> wepNames = new ArrayList<Item>();
-            for(int i = 0; i < furyItems.size(); i++) {
-                if(furyItems.get(i) instanceof Weapon) {
-                    wepNames.add(furyItems.get(i));
-                    System.out.println("-" + furyItems.get(i) + "\n");
-                }
-            }
+            System.out.println("What are you going to use?\n");
+            
+            System.out.println(p1.getWepNames());
 
             boolean moveValid = false;
             move = scan.next();
-            
-                for(int i = 0; i < wepNames.size(); i++) {
-                    
-                    if(move.equalsIgnoreCase(wepNames.get(i).getName())) {
-                        //Here is where I stopped.
-                        moveValid = true;
-                        System.out.println(wepNames.get(i).getName());
-                    }
-                    
+
+            for(int i = 0; i < wepNames.size(); i++) {
+
+                if(move.equalsIgnoreCase(wepNames.get(i).getName())) {
+                    //Here is where I stopped.
+                    moveValid = true;
+                    System.out.println(wepNames.get(i).getName());
                 }
-                
-                if(!moveValid) {
-                    fight();
-                }
-                
+
+            }
+
+            if(!moveValid) {
+                fight();
+            }
+
         }
     }
 
-        public static boolean hasEnemy() {
-            ArrayList<Person> enemies = arena1[p1.getX()][p1.getY()].getPeople();
-            for(int i = 0; i < enemies.size(); i++) {
-                if(enemies.get(i) instanceof Enemy) {
-                    canMove = false;
-                    return true;
-                }
+    public static boolean hasEnemy() {
+        ArrayList<Person> enemies = getArena().getPeople();
+        for(int i = 0; i < enemies.size(); i++) {
+            if(enemies.get(i) instanceof Enemy) {
+                canMove = false;
+                return true;
             }
-            canMove = true;
-            return false;
         }
-
-        public static Person enemyInRoom() {
-            ArrayList<Person> enemies = arena1[p1.getX()][p1.getY()].getPeople();
-            for(int i = 0; i < enemies.size(); i++) {
-                if(enemies.get(i) instanceof Enemy)
-                    return enemies.get(i);
-            }
-            //Why does this do this.
-            return enemies.get(0);
-
-        }
-
-        public static String getInfo() {
-            String totalInfo = "";
-            //This breaks every other time for because p1 doesn't get initialized first?
-            totalInfo += "You are in " + arena1[p1.getX()][p1.getY()].toString() + "\n";
-            totalInfo += "You have " + p1.getHealth() + " health\n";
-            totalInfo += "You have " + furyItems.size() + " items in your inventory.\n";
-            return totalInfo;
-        }
-        
-        public void enemyAttackPlayer() {
-            //This doesn't relate but I want to fix the method that calls the weapons you can use to fight and gives back all their stats.
-            Person guy = enemyInRoom();
-            p1.hurt(guy.getStrength());
-            System.out.println("You were attacked by " + guy.getName());
-            System.out.println("Your health is now: " + p1.getHealth());
-        }
-
+        canMove = true;
+        return false;
     }
+
+    //Need look method
+
+    public static String getInfo() {
+        String totalInfo = "";
+        //This breaks every other time for because p1 doesn't get initialized first?
+        totalInfo += "You are in " + arena1[p1.getX()][p1.getY()].toString() + "\n";
+        totalInfo += "You have " + p1.getHealth() + " health\n";
+        totalInfo += "You have " + furyItems.size() + " items in your inventory.\n";
+        return totalInfo;
+    }
+
+    public void enemyAttackPlayer() {
+        //This doesn't relate but I want to fix the method that calls the weapons you can use to fight and gives back all their stats.
+        Person guy = getArena().enemyInRoom();
+        p1.hurt(guy.getStrength());
+        System.out.println("You were attacked by " + guy.getName());
+        System.out.println("Your health is now: " + p1.getHealth());
+    }
+
+}

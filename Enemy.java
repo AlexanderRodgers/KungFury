@@ -19,6 +19,7 @@ public class Enemy extends Person {
         return itemsList;
     }
     
+    
     @Override
     public String hurt(double power) {
         if(power - health < 0)

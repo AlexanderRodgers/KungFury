@@ -53,8 +53,8 @@ public class Hero extends Person {
             System.out.println(outOfArena());
         }
     }
-    
-        public void moveSouth() {
+
+    public void moveSouth() {
         if(xcord < xmax) {
             xcord++;
         } else {
@@ -62,7 +62,7 @@ public class Hero extends Person {
         }
 
     }
-    
+
     public void moveEast() {
         if(ycord < ymax) {
             ycord++;
@@ -89,12 +89,26 @@ public class Hero extends Person {
     public boolean checkIfDead() {
         return isDead;
     }
-    
+
     public String outOfArena() {
         return "You can't move that way!\n";
     }
-    
+
     public String displayDirections() {
         return "-North\n-South\n-East\n-West";
+    }
+
+    
+    //NOT WORKING WANTED TO UPDATE TO AN ARRAYLIST TO CHECK TO SEE IF PLAYER CHOICE IS VALID
+   
+    public String getWepNames() {
+        ArrayList<String> wepNames = "Your Weapons: \n";
+        for(int i = 0; i < items.size(); i++) {
+            if(items.get(i) instanceof Weapon) {
+                wepNames += (items.get(i));
+            }
+        }
+        
+        return wepNames;
     }
 }
