@@ -4,7 +4,7 @@ public class FuryTest {
 
     static Place[][] arena1 = new Place[3][3];
     static ArrayList<Item> furyItems = new ArrayList<Item>();
-    static Hero p1 = new Hero("Kung fury", "The baddest boy", 20.0, 150.0);
+    static Hero p1 = new Hero("Kung fury", "The baddest boy", 20.0, 150.0, furyItems);
     static String move = "";
     static boolean canMove = true;
     static Scanner scan = new Scanner(System.in);
@@ -22,6 +22,8 @@ public class FuryTest {
         ArrayList<Person> sheriffPeople = new ArrayList<Person>();
         Person sMike = new Enemy("Mike", "A friend of the Führer", 15.0, 50.0);
         sheriffPeople.add(sMike);
+        Item fists = new Weapon("Fists", "Your most reliable ally", 20.0, 20.0);
+        furyItems.add(fists);
 
         arena1[0][0] = new Place("the home of Hackerman", "Pardon the cheeto dust.");
         arena1[0][1] = new Place("Hackerman's neighboorhood","Hackerman must be nearby.");
@@ -82,7 +84,7 @@ public class FuryTest {
                 if(p1.checkIfDead())
                     isAlive = false;
             }
-            
+
             if(p1.checkIfDead())
                 isAlive = false;
         }
@@ -185,32 +187,39 @@ public class FuryTest {
     }
 
     //The fight method is not currently working.
-    
+
     public static void fight() {
         //Edited this to work with place
-        Enemy inRoom = ((Enemy)getArena().enemyInRoom());
+        Person inRoom = getArena().enemyInRoom();
 
         if(inRoom.getName() == null) {
             System.out.println("There is no one here to fight.");
         } else {
             System.out.println("What are you going to use?\n");
+
+            System.out.println(p1.printWepNames());
             
-            System.out.println(p1.getWepNames());
-
             boolean moveValid = false;
-            move = scan.next();
+            int itemMove = scan.nextInt();
 
-            for(int i = 0; i < wepNames.size(); i++) {
+            //I could also override this and make people just use numbers.
 
-                if(move.equalsIgnoreCase(wepNames.get(i).getName())) {
-                    //Here is where I stopped.
+            ArrayList<Weapon> totalWeps = p1.getWeapons();
+            System.out.println(totalWeps.size());
+            
+            for(int i = 0; i < totalWeps.size(); i++) {
+                System.out.println(totalWeps.get(i));
+                if(itemMove == i+1) {
+                    System.out.println("Attack Successful.");
                     moveValid = true;
-                    System.out.println(wepNames.get(i).getName());
+                    playerAttackEnemy(totalWeps.get(i));
+                    enemyAttackPlayer();
                 }
-
             }
 
-            if(!moveValid) {
+            if(moveValid == false) {
+                //TODO: DEBUG
+                System.out.println("Restarting");
                 fight();
             }
 
@@ -229,8 +238,6 @@ public class FuryTest {
         return false;
     }
 
-    //Need look method
-
     public static String getInfo() {
         String totalInfo = "";
         //This breaks every other time for because p1 doesn't get initialized first?
@@ -240,10 +247,33 @@ public class FuryTest {
         return totalInfo;
     }
 
-    public void enemyAttackPlayer() {
+    public static void enemyAttackPlayer() {
         //This doesn't relate but I want to fix the method that calls the weapons you can use to fight and gives back all their stats.
         Person guy = getArena().enemyInRoom();
         p1.hurt(guy.getStrength());
+        System.out.println("You were attacked by " + guy.getName());
+        System.out.println("Your health is now: " + p1.getHealth());
+    }
+
+    public static void enemyAttackPlayer(Item item) {
+        Person guy = getArena().enemyInRoom();
+        p1.hurt(guy.getStrength());
+        System.out.println("You were attacked by " + guy.getName());
+        System.out.println("Your health is now: " + p1.getHealth());
+    }
+
+    public static void playerAttackEnemy() {
+
+        Person guy = getArena().enemyInRoom();
+        guy.hurt(p1.getStrength());
+        System.out.println("You were attacked by " + guy.getName());
+        System.out.println("Your health is now: " + p1.getHealth());
+    }
+
+    public static void playerAttackEnemy(Weapon weapon) {
+        //This doesn't relate but I want to fix the method that calls the weapons you can use to fight and gives back all their stats.
+        Person guy = getArena().enemyInRoom();
+        guy.hurt(weapon.getAttackStrength());
         System.out.println("You were attacked by " + guy.getName());
         System.out.println("Your health is now: " + p1.getHealth());
     }

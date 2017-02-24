@@ -98,14 +98,25 @@ public class Hero extends Person {
         return "-North\n-South\n-East\n-West";
     }
 
+    public String printWepNames() {
+        String names = "Your weapons: \n";
+        ArrayList<Weapon> wepNames = getWeapons();
+        if(wepNames.size() == 0) {
+            return "You have no weapons.\n";
+        }
+        for(int i = 0; i < wepNames.size(); i++) {
+            names += i+1 + " " + wepNames.get(i).toString() + "\n";
+        }
+        return names;
+    }
     
     //NOT WORKING WANTED TO UPDATE TO AN ARRAYLIST TO CHECK TO SEE IF PLAYER CHOICE IS VALID
    
-    public String getWepNames() {
-        ArrayList<String> wepNames = "Your Weapons: \n";
+    public ArrayList<Weapon> getWeapons() {
+        ArrayList<Weapon> wepNames = new ArrayList<Weapon>();
         for(int i = 0; i < items.size(); i++) {
             if(items.get(i) instanceof Weapon) {
-                wepNames += (items.get(i));
+                wepNames.add(((Weapon)items.get(i)));
             }
         }
         
