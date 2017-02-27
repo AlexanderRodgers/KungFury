@@ -39,8 +39,16 @@ public abstract class Person extends NamedThing {
         strength = power;
     }
     
-    public abstract String hurt(double power);
+    public void hurt(double power) {
+        if(health - power < 0) {
+            health = 0;
+        } else {
+            health -= power;
+        }
+    }
     
-    public abstract String heal(double addedHealth);
-    
+    public void heal(double addedHealth) {
+        health += addedHealth;
+    }
+
 }

@@ -16,23 +16,6 @@ public class Hero extends Person {
         super(name, desc, s, h);
     }
 
-    @Override
-    public String hurt(double power) {
-        if(power - health < 0) {
-            isDead = true;
-            return (this.getName() + " is dead!");
-        } else {
-            health -= power;
-            return (this.getName() + "\'s health is now: " + this.getHealth());
-        }
-    }
-
-    @Override
-    public String heal(double addedHealth) {
-        health += addedHealth;
-        return ("New health: " + this.getHealth());
-    }
-
     public void setCoords(int x, int y) {
         xcord = x;
         ycord = y;
@@ -105,12 +88,19 @@ public class Hero extends Person {
             return "You have no weapons.\n";
         }
         for(int i = 0; i < wepNames.size(); i++) {
-            names += i+1 + " " + wepNames.get(i).toString() + "\n";
+            names += i+1 + " " + wepNames.get(i).toString() + " it does " + 
+                wepNames.get(i).getAttackStrength() + " damage\n";
         }
         return names;
     }
     
-    //NOT WORKING WANTED TO UPDATE TO AN ARRAYLIST TO CHECK TO SEE IF PLAYER CHOICE IS VALID
+    public void addToInventory(Item x) {
+        items.add(x);
+    }
+    
+    public void removeFromInventory(int i) {
+        items.remove(i);
+    }
    
     public ArrayList<Weapon> getWeapons() {
         ArrayList<Weapon> wepNames = new ArrayList<Weapon>();
@@ -121,5 +111,9 @@ public class Hero extends Person {
         }
         
         return wepNames;
+    }
+    
+    public void addItem(Item item) {
+        items.add(item);
     }
 }

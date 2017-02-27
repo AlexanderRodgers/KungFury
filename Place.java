@@ -9,6 +9,11 @@ public class Place extends NamedThing {
         items = i;
         people = p;
     }
+    
+    public Place(String name, String desc, ArrayList<Item> i) {
+        super(name, desc);
+        items = i;
+    }
 
     public Place(String name, String desc) {
         super(name, desc);
@@ -44,8 +49,15 @@ public class Place extends NamedThing {
             }
         }
         //Why does this do this.
-        return people.get(0);
 
+        Person noOne = new Enemy("No one", "No one is here", 0.0, 0.0);
+        return noOne;
+
+
+    }
+    
+    public Item giveItem() {
+        return items.get(0);
     }
 
     public String look() {
@@ -60,12 +72,23 @@ public class Place extends NamedThing {
             things += "There are no items here.\n";
         } else {
             things += "Items in room: \n";
+            for(int i = 0; i < items.size(); i++) {
+                things += items.get(i).getName();
+            }
+            
         }
-        for(int i = 0; i < items.size(); i++) {
-            things += "-" + people.get(i) + "\n";
-        }
-        
         return things;
     }
+
+    public void removeItem() {
+        items.remove(0);
+    }
     
+    public void removePerson() {
+        for(int i = 0; i< people.size(); i++) {
+            if(Math.abs(people.get(i).getHealth()) < 0.0001)
+                people.remove(i);
+        }
+    }
+
 }
