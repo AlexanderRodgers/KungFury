@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 public class FuryTest {
 
     static Place[][] arena1 = new Place[3][3];
-    static Place[][] arena2 = new Place[4][4];
     static ArrayList<Item> furyItems = new ArrayList<Item>();
     static Hero p1 = new Hero("Kung fury", "The baddest boy", 20.0, 150.0, furyItems);
     static String move = "";
@@ -14,6 +13,8 @@ public class FuryTest {
     static int checkLength = 3;
     static String noFight = "Sorry, you can't move while there are enemies in the room!";
     static boolean firstCheck = true;
+    static boolean firstTimeLand = true;
+    static boolean hasHacked = false;
 
     static String help = "Commands:\n-North\n-South\n-East\n-West\n-Inv\n-Look\n-Fight\n-Health\n-Info\n-Grab";
 
@@ -110,88 +111,21 @@ public class FuryTest {
                     isAlive = false;
             }
 
-            boolean firstTimeLand = true;
-
             if(p1.getX() == 0 && p1.getY() == 0 && firstTimeLand) {
-                System.out.println("You have found hackerman, he can help!\n");
-                try {
-                    Thread.sleep(2000);
-                } catch(InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-                System.out.println("[HACKERMAN]: Thank goodness your here Kung Fury! Look I know I'm supposed to be a hacker\n" +
-                    "but I need your help. I know that you have taken AP Comp Science\n" +
-                    "I'm trying to hack you back in time but I don't understand the vocab, can you help me out?\n" +
-                    "By the way, the better you do, the more health you can get back!");
-                try {
-                    Thread.sleep(5000);
-                } catch(InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-                System.out.println("[YOU]: I'll see what I can do.\n");
+                funnyDialogue();
+            }
 
-                System.out.println("[HACKERMAN]: ");
-
-                System.out.println("1 - Yes\n2 - No");
-
-                int choice = scan.nextInt();
-
-                if(choice == 1) {
-                    System.out.println("[HACKERMAN]: It looks like that was it!");
-                    p1.heal(10.0);
-                    System.out.println("You got 10 health back!");
-                } else {
-                    System.out.println("[HACKERMAN]: That didn't seem right...");
-                }
-
-                System.out.println("[HACKERMAN]: What can be accessed from any static method in a class?");
-
-                System.out.println("1 - Local Variable\n2 - Instance Variable\n3 - Static Variable");
-
-                int choice = scan.nextInt();
-
-                if(choice == 1 || choice == 2) {
-                    System.out.println("[HACKERMAN]: That wasn't it");
-
-                } else {
-                    System.out.println("[HACKERMAN]: You got it!");
-                    p1.heal(10.0);
-                    System.out.println("You got 10 health back!");
-                }
-
-                System.out.println("[HACKERMAN]: Which Shrek movie was the best?");
-                System.out.println("1 - Shrek 1\n2 - Shrek 2\n3 - Shrek 3\n4 - Shrek 4\n5 - None");
-                int choice = scan.nextInt();
-                if(choice == 1) {
-                    System.out.println("[HACKERMAN]: Ah, the classic.");
-                    p1.heal(10.0);
-                    System.out.println("You got 10 health back!");
-                } else if(choice == 2) {
-                    System.out.println("[HACKERMAN]: You're right, the sequels aren't always worse!");
-                    p1.heal(10.0);
-                    System.out.println("You got 10 health back!");
-                } else if(choice == 3) {
-                    System.out.println("[HACKERMAN]: That one is pretty good.");
-                    p1.heal(10.0);
-                    System.out.println("You got 10 health back!");
-                } else if(choice == 4) {
-                    System.out.println("[HACKERMAN]: That one is pretty good.");
-                    p1.heal(10.0);
-                    System.out.println("You got 10 health back!");
-                } else {
-                    System.out.println("They're all good what are you talking about?");
-                }
-                
-                System.out.println("[HACKERMAN]: It works! I'm ready to hack you back in time!");
-                
-                System.out.println("You are about to hack back in time, continue? [y/n]");
-                String hackChoice = scan.next();
-                
-                if(hackChoice.charAt(0) == 'y') {
-                    
-                } else {
-                    System.out.println("Too bad, you're going back in time.");
-                }
+            System.out.println(p1.getX());
+            System.out.println(p1.getY());
+            if(p1.getX() == 2 && p1.getY() == 2 && hasHacked) {
+                System.out.println("You see him, it's the Kung Führer.");
+                System.out.println("[Führer]: Well, well, well, if it isn\'t Kung Fury himself.\n" +
+                    "I've been expecting you... it looks like we\'re going to have to battle to the death huh?\n" + 
+                    "You are no match for my impressive Kung Fury moves!\n");
+                System.out.println("Just as you prepare to battle, the Kung Führer tries to do a kick but\n" + 
+                    "sprains his leg. You walk over to him and kick him repeatedly\n" +
+                    "you win.");
+                win = true;
             }
 
             if(p1.checkIfDead())
@@ -201,6 +135,128 @@ public class FuryTest {
         if(win) {
             System.out.println("Congratulations!!!");
         }
+    }
+
+    public static void funnyDialogue() {
+        firstTimeLand = false;
+        System.out.println("You have found hackerman, he can help!\n");
+        try {
+            Thread.sleep(2000);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("[HACKERMAN]: Thank goodness you\'re here Kung Fury! Look I know I'm supposed to be a hacker\n" +
+            "but I need your help. I know that you have taken AP Comp Science\n" +
+            "I'm trying to hack you back in time but I don't understand the vocab, can you help me out?\n" +
+            "By the way, the better you do, the more health you can get back!");
+        try {
+            Thread.sleep(5000);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("[YOU]: I'll see what I can do.\n");
+
+        System.out.println("[HACKERMAN]: In java, can an abstract class also have abstract children?");
+
+        System.out.println("1 - Yes\n2 - No");
+
+        int choice = scan.nextInt();
+
+        if(choice == 1) {
+            System.out.println("[HACKERMAN]: It looks like that was it!");
+            p1.heal(10.0);
+            System.out.println("You got 10 health back!\n");
+        } else {
+            System.out.println("[HACKERMAN]: That didn't seem right...\n");
+        }
+
+        System.out.println("[HACKERMAN]: What can be accessed from any static method in a class?");
+
+        System.out.println("1 - Local Variable\n2 - Instance Variable\n3 - Static Variable");
+
+        choice = scan.nextInt();
+
+        if(choice == 1 || choice == 2) {
+            System.out.println("[HACKERMAN]: That wasn't it\n");
+
+        } else {
+            System.out.println("[HACKERMAN]: You got it!\n");
+            p1.heal(10.0);
+            System.out.println("You got 10 health back!\n");
+        }
+
+        System.out.println("[HACKERMAN]: Which Shrek movie was the best?");
+        System.out.println("1 - Shrek 1\n2 - Shrek 2\n3 - Shrek 3\n4 - Shrek 4\n5 - None");
+        choice = scan.nextInt();
+        if(choice == 1) {
+            System.out.println("[HACKERMAN]: Ah, the classic.");
+            p1.heal(10.0);
+            System.out.println("You got 10 health back!\n");
+        } else if(choice == 2) {
+            System.out.println("[HACKERMAN]: You're right, the sequels aren't always worse!");
+            p1.heal(10.0);
+            System.out.println("You got 10 health back!\n");
+        } else if(choice == 3) {
+            System.out.println("[HACKERMAN]: That one is pretty good.");
+            p1.heal(10.0);
+            System.out.println("You got 10 health back!\n");
+        } else if(choice == 4) {
+            System.out.println("[HACKERMAN]: That one is pretty good.");
+            p1.heal(10.0);
+            System.out.println("You got 10 health back!\n");
+        } else {
+            System.out.println("They're all good what are you talking about?\n");
+        }
+
+        System.out.println("[HACKERMAN]: It works! I'm ready to hack you back in time!");
+
+        System.out.println("You are about to hack back in time, continue? [y/n]");
+        String hackChoice = scan.next();
+
+        if(hackChoice.charAt(0) == 'y') {
+            hackTime();
+        } else {
+            System.out.println("Too bad, you're going back in time.");
+            hackTime();
+        }
+    }
+
+    public static void hackTime() {
+        //Guard at tank
+        ArrayList<Item> guardItems = new ArrayList<Item>();
+        ArrayList<Person> guardPeople = new ArrayList<Person>();
+        Person gEnemy = new Enemy("Oscar", "A German soldier", 15.0, 50.0);
+        guardPeople.add(gEnemy);
+        Item sword = new Weapon("A big ol\' sword.", "Yeah, this would hurt.", 30.0, 30.0);
+        guardItems.add(sword);
+
+        //Old people
+        ArrayList<Item> oldPeopleItems = new ArrayList<Item>();
+        ArrayList<Person> oldPeople = new ArrayList<Person>();
+        Person oPeople = new Enemy("Hansel", "A German man who's pretty good at Karate.", 20.0, 50.0);
+        guardPeople.add(gEnemy);
+        Item slippers = new Weapon("A pair of slippers", "Cause why not.", 30.0, 30.0);
+        guardItems.add(slippers);
+
+        hasHacked = true;
+        System.out.println("\n******HACKING TIME*****\n");
+        try {
+            Thread.sleep(3000);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+
+        arena1[0][0] = new Place("Germany", "This is the time period of the Führer!");
+        arena1[0][1] = new Place("The guard post", "Tread lightly.", guardItems);
+        arena1[0][2] = new Place("The tank", "It\'s big.", guardItems, guardPeople);
+        arena1[1][0] = new Place("A bus station", "A bus that comes every hour, on the hour");
+        arena1[1][1] = new Place("Berlin", "You\'re getting closer.");
+
+        //paused here.
+        arena1[1][2] = new Place("Somewhere close to Berlin", "You see a cow, but it wanders off.");
+        arena1[2][0] = new Place("The home of an elderly couple", "You see furniture wrapped in plastic", oldPeopleItems, oldPeople);
+        arena1[2][1] = new Place("Out side the Führer\'s headquarters", "So close!");
+        arena1[2][2] = new Place("The Führer\'s room", "It\'s a battle to the death.");
     }
 
     public static String generateMap() {
@@ -224,10 +280,7 @@ public class FuryTest {
         return map;
     }
 
-    
-    
     public static void changeLoc(String input) {
-
         if(input.substring(0, 3).equalsIgnoreCase("nor")) {
             p1.moveNorth();
         }
