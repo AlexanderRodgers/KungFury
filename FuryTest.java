@@ -15,9 +15,7 @@ public class FuryTest {
     static boolean firstCheck = true;
     static boolean firstTimeLand = true;
     static boolean hasHacked = false;
-
-    static String help = "Commands:\n-North\n-South\n-East\n-West\n-Inv\n-Look\n-Fight\n-Health\n-Info\n-Grab";
-
+    
     public static void main(String[] args) {
 
         Item fists = new Weapon("Fists", "Your most reliable ally", 20.0, 20.0);
@@ -65,20 +63,13 @@ public class FuryTest {
         //Must be a square
         p1.updateMax(arena1.length-1, arena1[2].length-1);
 
-        String titleScreen = "Kung Fury: The video game";
         System.out.print("\f");
 
-        System.out.println(titleScreen + "\n\n");
+        System.out.println(StringMap.titleScreen + "\n\n");
 
-        System.out.println("Hello Kung Fury, the best cop in the world! You're our\n" + 
-            "only hope at defeating the Kung Führer. He's been terrorizing the entire country\n" + 
-            "The only explanation is He must have come from the past to destroy the place, you must hack" + 
-            "back in time to Nazi Germany to defeat him!\n\n" + 
-            "To do this you must find hackerman so he can hack you back in time\nYou'll" +
+        System.out.println(StringMap.intro);
 
-            " know what to do when you get there.\n\nYou can type \"help\" at any time to see a list of moves.");
-
-        System.out.println("Here are your commands: " + help + "\n");
+        System.out.println("Here are your commands: " + StringMap.help + "\n");
 
         while(isAlive && !win) {
 
@@ -86,7 +77,7 @@ public class FuryTest {
             System.out.println();
 
             System.out.println("You are in " + getArena().toString() + "\n");
-            System.out.println("Where do you want to go?");
+            System.out.println(StringMap.whereTo);
             move = scan.next();
             filterAll(move);
             while(hasEnemy()) {
@@ -101,7 +92,7 @@ public class FuryTest {
                 move.equalsIgnoreCase("south") ||
                 move.equalsIgnoreCase("west") ||
                 move.equalsIgnoreCase("east") && !canMove) {
-                    System.out.println("You can't move while enemies are nearby!");
+                    System.out.println(StringMap.noMove);
                     move = scan.next();
                 }
 
@@ -133,22 +124,19 @@ public class FuryTest {
         }
 
         if(win) {
-            System.out.println("Congratulations!!!");
+            System.out.println(StringMap.gameOverMessage);
         }
     }
 
     public static void funnyDialogue() {
         firstTimeLand = false;
-        System.out.println("You have found hackerman, he can help!\n");
+        System.out.println(StringMap.hackermanFound + "\n");
         try {
             Thread.sleep(2000);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
-        System.out.println("[HACKERMAN]: Thank goodness you\'re here Kung Fury! Look I know I'm supposed to be a hacker\n" +
-            "but I need your help. I know that you have taken AP Comp Science\n" +
-            "I'm trying to hack you back in time but I don't understand the vocab, can you help me out?\n" +
-            "By the way, the better you do, the more health you can get back!");
+        System.out.println(StringMap.hackermanIntro);
         try {
             Thread.sleep(5000);
         } catch(InterruptedException ex) {
@@ -211,12 +199,17 @@ public class FuryTest {
         System.out.println("[HACKERMAN]: It works! I'm ready to hack you back in time!");
 
         System.out.println("You are about to hack back in time, continue? [y/n]");
+        
+        //James edited this. I don't know if it'll work.
+        while (scan.hasNextDouble()){
+            scan.next();
+        }
         String hackChoice = scan.next();
 
         if(hackChoice.charAt(0) == 'y') {
             hackTime();
         } else {
-            System.out.println("Too bad, you're going back in time.");
+            System.out.println(StringMap.hackRejection);
             hackTime();
         }
     }
@@ -239,7 +232,7 @@ public class FuryTest {
         guardItems.add(slippers);
 
         hasHacked = true;
-        System.out.println("\n******HACKING TIME*****\n");
+        System.out.println("\n" + StringMap.hackingTime +"\n");
         try {
             Thread.sleep(3000);
         } catch(InterruptedException ex) {
@@ -295,7 +288,7 @@ public class FuryTest {
         }
         else {
             //Now useless, saving for cleanup.
-            System.out.println("Where do you want to go again?");
+            System.out.println(StringMap.whereTo);
             move = scan.next();
             changeLoc(move);
         }
@@ -315,7 +308,7 @@ public class FuryTest {
     public static void filterAll(String input) {
         if(input.length() >= checkLength) {
             if(askHelp(input)) {
-                System.out.println(help);
+                System.out.println(StringMap.help);
             }
             else if(
             (input.substring(0, 3).equalsIgnoreCase("nor")) ||
@@ -345,14 +338,14 @@ public class FuryTest {
                 pick();
             }
             else {
-                System.out.println("What do you want to do?");
+                System.out.println(StringMap.choiceInvalid);
                 move = scan.next();
                 filterAll(move); 
             }
             //more else
 
         } else {
-            System.out.println("Can you enter the command again?");
+            System.out.println(StringMap.whereToMiss);
             move = scan.next();
             filterAll(move);
         }
@@ -363,9 +356,9 @@ public class FuryTest {
         Person inRoom = getArena().enemyInRoom();
 
         if(inRoom.getName() == null) {
-            System.out.println("There is no one here to fight.");
+            System.out.println(StringMap.noFight);
         } else {
-            System.out.println("What are you going to use?\n");
+            System.out.println(StringMap.weaponChoices + "\n");
 
             System.out.println(p1.printWepNames());
 
@@ -412,7 +405,7 @@ public class FuryTest {
             getArena().removeItem();
         }
         else {
-            System.out.println("There are no items to pick up!");
+            System.out.println(StringMap.noItemsPickup);
         }
     }
 
@@ -444,15 +437,6 @@ public class FuryTest {
         System.out.println("You were attacked by " + guy.getName());
         System.out.println("Your health is now: " + p1.getHealth());
     }
-
-    //     public static void playerAttackEnemy() {
-    // 
-    //         Person guy = getArena().enemyInRoom();
-    //         guy.hurt(p1.getStrength());
-    //         System.out.println("You were attacked by " + guy.getName());
-    //         System.out.println("Your health is now: " + p1.getHealth());
-    //         System.out.println(guy.getName() + "\'s health is now: " + guy.getHealth());
-    //     }
 
     public static void playerAttackEnemy(Weapon weapon) {
         //This doesn't relate but I want to fix the method that calls the weapons you can use to fight and gives back all their stats.
