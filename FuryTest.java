@@ -20,8 +20,8 @@ public class FuryTest {
     static boolean firstDisplayHere = false;
 
     public static void main(String[] args) {
-
-        Item fists = new Weapon("Fists", "Your most reliable ally", 20.0, 20.0);
+        
+        Item fists = new Weapon("Fists", "Your most reliable ally", 10.0, 10.0);
         furyItems.add(fists);
 
         //Sheriff
@@ -80,9 +80,9 @@ public class FuryTest {
 
         String loadingScreen = scan.next();
 
+        System.out.print("\f");
         while(isAlive && !win) {
 
-            System.out.print("\f");
             System.out.println(generateMap());
             System.out.println();
 
@@ -182,7 +182,7 @@ public class FuryTest {
         }
 
         System.out.println(StringMap.hackermanQ3);
-        System.out.println();
+        System.out.println(StringMap.q3Answer);
         choice = scan.nextInt();
         if(choice == 1) {
             System.out.println(StringMap.q3Choice1);
@@ -236,8 +236,16 @@ public class FuryTest {
         ArrayList<Person> oldPeople = new ArrayList<Person>();
         Person oPeople = new Enemy("Hansel", "A German man who's pretty good at Karate.", 20.0, 50.0);
         guardPeople.add(gEnemy);
-        Item slippers = new Weapon("A pair of slippers", "Cause why not.", 30.0, 30.0);
+        Item slippers = new Weapon("A pair of slippers", "Cause why not.", 5.0, 5.0);
         guardItems.add(slippers);
+
+        //Headquarter's henchman
+        ArrayList<Item> henchItems = new ArrayList<Item>();
+        ArrayList<Person> henchPeople = new ArrayList<Person>();
+        Person hPeople = new Enemy("Tom", "He just needed a job, he's pretty cool after work.", 20.0, 50.0);
+        henchPeople.add(gEnemy);
+        Item axe = new Weapon("A dull axe", "Just try it.", 15.0, 15.0);
+        henchItems.add(axe);
 
         hasHacked = true;
         System.out.println("\n" + StringMap.hackingTime +"\n");
@@ -252,7 +260,7 @@ public class FuryTest {
         //paused here.
         arena1[1][2] = new Place("Somewhere close to Berlin", "You see a cow, but it wanders off.");
         arena1[2][0] = new Place("The home of an elderly couple", "You see furniture wrapped in plastic", oldPeopleItems, oldPeople);
-        arena1[2][1] = new Place("Out side the Führer\'s headquarters", "So close!");
+        arena1[2][1] = new Place("Out side the Führer\'s headquarters", "So close!", henchItems, henchPeople);
         arena1[2][2] = new Place("The Führer\'s room", "It\'s a battle to the death.");
     }
 
@@ -355,11 +363,8 @@ public class FuryTest {
         }
     }
 
-
     public static void fight() {
-
         Person inRoom = getArena().enemyInRoom();
-
         if(inRoom.getName() == null) {
             System.out.println(StringMap.noFight);
         } else {
