@@ -7,15 +7,18 @@ public class FuryTest {
     static ArrayList<Item> furyItems = new ArrayList<Item>();
     static Hero p1 = new Hero("Kung fury", "The baddest boy", 20.0, 150.0, furyItems);
     static String move = "";
-    static boolean canMove = true;
-    static boolean win = false;
     static Scanner scan = new Scanner(System.in);
     static int checkLength = 3;
     static String noFight = "Sorry, you can't move while there are enemies in the room!";
+
+    //booleans
+    static boolean canMove = true;
+    static boolean win = false;
     static boolean firstCheck = true;
     static boolean firstTimeLand = true;
     static boolean hasHacked = false;
-    
+    static boolean firstDisplayHere = false;
+
     public static void main(String[] args) {
 
         Item fists = new Weapon("Fists", "Your most reliable ally", 20.0, 20.0);
@@ -65,14 +68,21 @@ public class FuryTest {
 
         System.out.print("\f");
 
+        System.out.println(StringMap.theme);
+
         System.out.println(StringMap.titleScreen + "\n\n");
 
         System.out.println(StringMap.intro);
 
         System.out.println("Here are your commands: " + StringMap.help + "\n");
 
+        System.out.println("TYPE \'BEGIN\' TO BEGIN");
+
+        String loadingScreen = scan.next();
+
         while(isAlive && !win) {
 
+            System.out.print("\f");
             System.out.println(generateMap());
             System.out.println();
 
@@ -109,10 +119,8 @@ public class FuryTest {
             System.out.println(p1.getX());
             System.out.println(p1.getY());
             if(p1.getX() == 2 && p1.getY() == 2 && hasHacked) {
-                System.out.println("You see him, it's the Kung Führer.");
-                System.out.println("[Führer]: Well, well, well, if it isn\'t Kung Fury himself.\n" +
-                    "I've been expecting you... it looks like we\'re going to have to battle to the death huh?\n" + 
-                    "You are no match for my impressive Kung Fury moves!\n");
+                System.out.println(StringMap.fuhrerSeen);
+                System.out.println(StringMap.fuhrerMoves);
                 System.out.println("Just as you prepare to battle, the Kung Führer tries to do a kick but\n" + 
                     "sprains his leg. You walk over to him and kick him repeatedly\n" +
                     "you win.");
@@ -128,78 +136,78 @@ public class FuryTest {
         }
     }
 
+    public static void pause(int x) {
+        try {
+            Thread.sleep(x);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     public static void funnyDialogue() {
         firstTimeLand = false;
         System.out.println(StringMap.hackermanFound + "\n");
-        try {
-            Thread.sleep(2000);
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
+        pause(2000);
         System.out.println(StringMap.hackermanIntro);
-        try {
-            Thread.sleep(5000);
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-        System.out.println("[YOU]: I'll see what I can do.\n");
+        pause(5000);
+        System.out.println(StringMap.willSeePlayer);
 
-        System.out.println("[HACKERMAN]: In java, can an abstract class also have abstract children?");
+        System.out.println(StringMap.hackermanQ1);
 
-        System.out.println("1 - Yes\n2 - No");
+        System.out.println(StringMap.q1Answer);
 
         int choice = scan.nextInt();
 
         if(choice == 1) {
-            System.out.println("[HACKERMAN]: It looks like that was it!");
+            System.out.println(StringMap.q1Correct);
             p1.heal(10.0);
-            System.out.println("You got 10 health back!\n");
+            System.out.println(StringMap.healthBack + "\n");
         } else {
-            System.out.println("[HACKERMAN]: That didn't seem right...\n");
+            System.out.println(StringMap.q1Wrong + "\n");
         }
 
-        System.out.println("[HACKERMAN]: What can be accessed from any static method in a class?");
+        System.out.println(StringMap.hackermanQ2);
 
-        System.out.println("1 - Local Variable\n2 - Instance Variable\n3 - Static Variable");
+        System.out.println(StringMap.q2Answer);
 
         choice = scan.nextInt();
 
         if(choice == 1 || choice == 2) {
-            System.out.println("[HACKERMAN]: That wasn't it\n");
+            System.out.println(StringMap.q1Wrong +"\n");
 
         } else {
-            System.out.println("[HACKERMAN]: You got it!\n");
+            System.out.println(StringMap.q1Correct + "\n");
             p1.heal(10.0);
-            System.out.println("You got 10 health back!\n");
+            System.out.println(StringMap.healthBack + "\n");
         }
 
-        System.out.println("[HACKERMAN]: Which Shrek movie was the best?");
-        System.out.println("1 - Shrek 1\n2 - Shrek 2\n3 - Shrek 3\n4 - Shrek 4\n5 - None");
+        System.out.println(StringMap.hackermanQ3);
+        System.out.println();
         choice = scan.nextInt();
         if(choice == 1) {
-            System.out.println("[HACKERMAN]: Ah, the classic.");
+            System.out.println(StringMap.q3Choice1);
             p1.heal(10.0);
-            System.out.println("You got 10 health back!\n");
+            System.out.println(StringMap.healthBack + "\n");
         } else if(choice == 2) {
-            System.out.println("[HACKERMAN]: You're right, the sequels aren't always worse!");
+            System.out.println(StringMap.q3Choice2);
             p1.heal(10.0);
-            System.out.println("You got 10 health back!\n");
+            System.out.println(StringMap.healthBack + "\n");
         } else if(choice == 3) {
-            System.out.println("[HACKERMAN]: That one is pretty good.");
+            System.out.println(StringMap.q3Choice3);
             p1.heal(10.0);
-            System.out.println("You got 10 health back!\n");
+            System.out.println(StringMap.healthBack + "\n");
         } else if(choice == 4) {
-            System.out.println("[HACKERMAN]: That one is pretty good.");
+            System.out.println(StringMap.q3Choice3);
             p1.heal(10.0);
-            System.out.println("You got 10 health back!\n");
+            System.out.println(StringMap.healthBack + "\n");
         } else {
-            System.out.println("They're all good what are you talking about?\n");
+            System.out.println(StringMap.q3Fail + "\n");
         }
 
-        System.out.println("[HACKERMAN]: It works! I'm ready to hack you back in time!");
+        System.out.println(StringMap.hackermanReady);
 
-        System.out.println("You are about to hack back in time, continue? [y/n]");
-        
+        System.out.println(StringMap.readyToHack);
+
         //James edited this. I don't know if it'll work.
         while (scan.hasNextDouble()){
             scan.next();
@@ -233,11 +241,7 @@ public class FuryTest {
 
         hasHacked = true;
         System.out.println("\n" + StringMap.hackingTime +"\n");
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
+        pause(3000);
 
         arena1[0][0] = new Place("Germany", "This is the time period of the Führer!");
         arena1[0][1] = new Place("The guard post", "Tread lightly.", guardItems);
@@ -351,15 +355,16 @@ public class FuryTest {
         }
     }
 
+
     public static void fight() {
-        //Edited this to work with place
+
         Person inRoom = getArena().enemyInRoom();
 
         if(inRoom.getName() == null) {
             System.out.println(StringMap.noFight);
         } else {
             System.out.println(StringMap.weaponChoices + "\n");
-
+            firstDisplayHere = true;
             System.out.println(p1.printWepNames());
 
             boolean moveValid = false;
@@ -369,7 +374,7 @@ public class FuryTest {
             System.out.println(totalWeps.size());
 
             for(int i = 0; i < totalWeps.size(); i++) {
-                System.out.println(totalWeps.get(i));
+
                 if(itemMove == i+1) {
                     System.out.println("Attack Successful.");
                     System.out.println();
@@ -384,6 +389,8 @@ public class FuryTest {
             }
 
         }
+
+        firstDisplayHere = false;
     }
 
     public static boolean hasEnemy() {
@@ -423,7 +430,6 @@ public class FuryTest {
     }
 
     public static void enemyAttackPlayer() {
-        //This doesn't relate but I want to fix the method that calls the weapons you can use to fight and gives back all their stats.
         Person guy = getArena().enemyInRoom();
         p1.hurt(guy.getStrength());
         System.out.println("You were attacked by " + guy.getName());
@@ -444,9 +450,10 @@ public class FuryTest {
         guy.hurt(weapon.getAttackStrength());
         if(guy.getHealth() == 0) {
             System.out.println(guy.getName() + " is dead!");
+            pause(2000);
             getArena().removePerson();
         } else {
-            System.out.println("You were attacked by " + guy.getName());
+            //System.out.println("You were attacked by " + guy.getName());
             System.out.println("Your health is now: " + p1.getHealth());
             System.out.println(guy.getName() + "\'s health is now: " + guy.getHealth());
             System.out.println();
