@@ -20,7 +20,7 @@ public class FuryTest {
     static boolean firstDisplayHere = false;
 
     public static void main(String[] args) {
-        
+
         Item fists = new Weapon("Fists", "Your most reliable ally", 10.0, 10.0);
         furyItems.add(fists);
 
@@ -39,6 +39,11 @@ public class FuryTest {
         ArrayList<Item> arcadeItems = new ArrayList<Item>();
         Item rollOfQuarters = new Weapon("A roll of Quarters", "Why would you even try to use this on someone?", 1.0, 1.0);
         arcadeItems.add(rollOfQuarters);
+        
+        //Town Center
+        ArrayList<Item> townItems = new ArrayList<Item>();
+        Item taser = new Weapon("A taser", "very shocking", 15.0, 15.0);
+        townItems.add(rollOfQuarters);
 
         //Oak Ridge
         ArrayList<Item> oakItems = new ArrayList<Item>();
@@ -54,7 +59,7 @@ public class FuryTest {
         arena1[1][0] = new Place("Oak Ridge High School", "Softly, in the distance you hear the cry of children.", oakItems, oakPeople);
         arena1[1][1] = new Place("the Sheriffs office", "The Führer destroyed the place.", sheriffItems, sheriffPeople);
 
-        arena1[1][2] = new Place("Town Center", "");
+        arena1[1][2] = new Place("Town Center", "", townItems);
         arena1[2][0] = new Place("he home of the president", "you hear snoring going on in the background.");
         arena1[2][1] = new Place("your house", "A lovely little place");
         arena1[2][2] = new Place("the arcade", "It's full of stuff.", arcadeItems);
@@ -80,8 +85,8 @@ public class FuryTest {
 
         String loadingScreen = scan.next();
 
-        System.out.print("\f");
         while(isAlive && !win) {
+            System.out.print("\f");
 
             System.out.println(generateMap());
             System.out.println();
@@ -131,6 +136,10 @@ public class FuryTest {
                 isAlive = false;
         }
 
+        if(isAlive == false) {
+            System.out.println(StringMap.youLoseMessage);
+        }
+        
         if(win) {
             System.out.println(StringMap.gameOverMessage);
         }
