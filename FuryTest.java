@@ -39,7 +39,7 @@ public class FuryTest {
         ArrayList<Item> arcadeItems = new ArrayList<Item>();
         Item rollOfQuarters = new Weapon("A roll of Quarters", "Why would you even try to use this on someone?", 1.0, 1.0);
         arcadeItems.add(rollOfQuarters);
-        
+
         //Town Center
         ArrayList<Item> townItems = new ArrayList<Item>();
         Item taser = new Weapon("A taser", "very shocking", 15.0, 15.0);
@@ -76,6 +76,8 @@ public class FuryTest {
         System.out.println(StringMap.theme);
 
         System.out.println(StringMap.titleScreen + "\n\n");
+
+        pause(3000);
 
         System.out.println(StringMap.intro);
 
@@ -125,10 +127,11 @@ public class FuryTest {
             System.out.println(p1.getY());
             if(p1.getX() == 2 && p1.getY() == 2 && hasHacked) {
                 System.out.println(StringMap.fuhrerSeen);
+                pause(3000);
                 System.out.println(StringMap.fuhrerMoves);
-                System.out.println("Just as you prepare to battle, the Kung Führer tries to do a kick but\n" + 
-                    "sprains his leg. You walk over to him and kick him repeatedly\n" +
-                    "you win.");
+                pause(4000);
+                System.out.println(StringMap.fuhrerLastMessage);
+                pause(4000);
                 win = true;
             }
 
@@ -139,7 +142,7 @@ public class FuryTest {
         if(isAlive == false) {
             System.out.println(StringMap.youLoseMessage);
         }
-        
+
         if(win) {
             System.out.println(StringMap.gameOverMessage);
         }
@@ -165,6 +168,10 @@ public class FuryTest {
 
         System.out.println(StringMap.q1Answer);
 
+        while(!scan.hasNextInt()) {
+            System.out.println("Sorry please use the number keys.");
+            scan.next();
+        }
         int choice = scan.nextInt();
 
         if(choice == 1) {
@@ -179,6 +186,10 @@ public class FuryTest {
 
         System.out.println(StringMap.q2Answer);
 
+        while(!scan.hasNextInt()) {
+            System.out.println("Sorry please use the number keys.");
+            scan.next();
+        }
         choice = scan.nextInt();
 
         if(choice == 1 || choice == 2) {
@@ -192,6 +203,11 @@ public class FuryTest {
 
         System.out.println(StringMap.hackermanQ3);
         System.out.println(StringMap.q3Answer);
+        
+        while(!scan.hasNextInt()) {
+                System.out.println("Sorry please use the number keys.");
+                scan.next();
+            }	
         choice = scan.nextInt();
         if(choice == 1) {
             System.out.println(StringMap.q3Choice1);
@@ -217,7 +233,6 @@ public class FuryTest {
 
         System.out.println(StringMap.readyToHack);
 
-        //James edited this. I don't know if it'll work.
         while (scan.hasNextDouble()){
             scan.next();
         }
@@ -308,7 +323,6 @@ public class FuryTest {
             p1.moveEast();
         }
         else {
-            //Now useless, saving for cleanup.
             System.out.println(StringMap.whereTo);
             move = scan.next();
             changeLoc(move);
@@ -354,6 +368,7 @@ public class FuryTest {
             }
             else if(input.substring(0, 3).equalsIgnoreCase("loo")) {
                 System.out.println(getArena().look());
+                pause(2000);
             }
             else if(input.substring(0, 3).equalsIgnoreCase("gra")) {
                 pick();
@@ -382,6 +397,10 @@ public class FuryTest {
             System.out.println(p1.printWepNames());
 
             boolean moveValid = false;
+            while(!scan.hasNextInt()) {
+                System.out.println("Sorry please use the number keys.");
+                scan.next();
+            }
             int itemMove = scan.nextInt();
 
             ArrayList<Weapon> totalWeps = p1.getWeapons();
@@ -449,13 +468,6 @@ public class FuryTest {
         System.out.println("You were attacked by " + guy.getName());
         System.out.println("Your health is now: " + p1.getHealth());
         System.out.println();
-    }
-
-    public static void enemyAttackPlayer(Item item) {
-        Person guy = getArena().enemyInRoom();
-        p1.hurt(guy.getStrength());
-        System.out.println("You were attacked by " + guy.getName());
-        System.out.println("Your health is now: " + p1.getHealth());
     }
 
     public static void playerAttackEnemy(Weapon weapon) {

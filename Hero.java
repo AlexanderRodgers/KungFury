@@ -34,6 +34,7 @@ public class Hero extends Person {
             xcord--;
         } else {
             System.out.println(outOfArena());
+            pause(1000);
         }
     }
 
@@ -42,6 +43,7 @@ public class Hero extends Person {
             xcord++;
         } else {
             System.out.println(outOfArena());
+            pause(1000);
         }
 
     }
@@ -51,6 +53,7 @@ public class Hero extends Person {
             ycord++;
         } else {
             System.out.println(outOfArena());
+            pause(1000);
         }
 
     }
@@ -60,6 +63,7 @@ public class Hero extends Person {
             ycord--;
         } else {
             System.out.println(outOfArena());
+            pause(1000);
         }
 
     }
@@ -79,6 +83,14 @@ public class Hero extends Person {
 
     public String displayDirections() {
         return "-North\n-South\n-East\n-West";
+    }
+    
+    public static void pause(int x) {
+        try {
+            Thread.sleep(x);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     public String printWepNames() {

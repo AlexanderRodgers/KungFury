@@ -1,16 +1,19 @@
 public class StringMap {
     public static String theme = "                                                                                        _____                                                  \r\n ______   _______ ______   _____    _____    _____            _____               ____  \\    \\ ______   _____    ___________   ______   _____  \r\n|\\     \\  \\      \\\\     \\  \\    \\  |\\    \\   \\    \\      _____\\    \\_             \\   \\ /____/|\\     \\  \\    \\   \\          \\ |\\     \\ |     | \r\n \\\\     \\  |     /|\\    |  |    |   \\\\    \\   |    |    /     /|     |             |  |/_____|/ \\    |  |    |    \\    /\\    \\\\ \\     \\|     | \r\n  \\|     |/     //  |   |  |    |    \\\\    \\  |    |   /     / /____/|             |  |    ___   |   |  |    |     |   \\_\\    |\\ \\           | \r\n   |     |_____//   |    \\_/   /|     \\|    \\ |    |  |     | |_____|/             |   \\__/   \\  |    \\_/   /|     |      ___/  \\ \\____      | \r\n   |     |\\     \\   |\\         \\|      |     \\|    |  |     | |_________          /      /\\___/| |\\         \\|     |      \\  ____\\|___/     /| \r\n  /     /|\\|     |  | \\         \\__   /     /\\      \\ |\\     \\|\\        \\        /      /| | | | | \\         \\__  /     /\\ \\/    \\   /     / | \r\n /_____/ |/_____/|   \\ \\_____/\\    \\ /_____/ /______/|| \\_____\\|    |\\__/|       |_____| /\\|_|/   \\ \\_____/\\    \\/_____/ |\\______|  /_____/  / \r\n|     | / |    | |    \\ |    |/___/||      | |     | || |     /____/| | ||       |     |/          \\ |    |/___/||     | | |     |  |     | /  \r\n|_____|/  |____|/      \\|____|   | ||______|/|_____|/  \\|_____|     |\\|_|/       |_____|            \\|____|   | ||_____|/ \\|_____|  |_____|/   \r\n                             |___|/                           |____/                                      |___|/                               ";
 
-    public static String help = "Commands:\n-North\n-South\n-East\n-West\n-Inv\n-Look\n-Fight\n-Health\n-Info";
+    public static String help = "\n-North\n-South\n-East\n-West\n-Inv\n-Look\n-Fight\n-Health\n-Info";
 
     public static String titleScreen = "Kung Fury: The video game";
     
-    public static String intro = "Hello Kung Fury, the best cop in the world! You're our\n" + 
-            "only hope at defeating the Kung Führer. You must hack your way\n" + 
-            "back in time to Nazi Germany to defeat him!\n\n" + 
-            "To do this you must find hackerman so he can hack you back in time\nYou'll" +
-            " know what to do when you get there.\n\nYou can type \"help\" at any time to see a list of moves.";
-
+    public static String intro = "Hello Kung Fury, we need your help against an evil threat: Kung Führer.\n" +
+                                 "Years ago, during World War II he was the axis' secret weapon. He was trying\n" +
+                                 "to perfect the secret art of Kung Fury for years but never perfected it. Right\n" +
+                                 "before he found his major breakthrough, he disappeared. It looks like he \n" +
+                                 "has managed to teleport through time and is now attacking the entire country.\n" +
+                                 "It is up to you to hack back in time to Germany in 1945 to save us all. To do this\n" +
+                                 "you'll need to find someone called HACKERMAN, you\'ll know what to do when you get there.\n" +
+                                 "Good luck Kung Fury!\n";
+    
     public static String whereTo = "Where do you want to go?";
     
     public static String noMove = "You can't move while enemies are nearby!";
@@ -27,7 +30,7 @@ public class StringMap {
     
     public static String fuhrerMoves = "[Führer]: Well, well, well, if it isn\'t Kung Fury himself.\n" +
                     "I've been expecting you... it looks like we\'re going to have to battle to the death huh?\n" + 
-                    "You are no match for my impressive Kung Fury moves!\n";
+                    "You are no match for my impressive moves!\n";
     
     public static String noItemsPickup = "There are no items to pick up!";
     
@@ -71,6 +74,10 @@ public class StringMap {
     public static String hackingTime = "*********HACKING TIME**********";
     
     public static String hackRejection = "Too bad, you\'re going back in time.";
+    
+    public static String fuhrerLastMessage = "Just as you prepare to battle, the Kung Führer tries to do an amazing kick but\n" + 
+                    "sprains his leg. You walk over to him and easily beat him\n" +
+                    "you win.";
     
     public static String gameOverMessage = "                                                                                                                   \r\n ______   _____        ____   ______   _____              _______     _______     ____________  _____    _____     \r\n|\\     \\ |     |   ____\\_  \\__\\     \\  \\    \\            /      /|   |\\      \\   /            \\|\\    \\   \\    \\    \r\n\\ \\     \\|     |  /     /     \\\\    |  |    |           /      / |   | \\      \\ |\\___/\\  \\\\___/|\\\\    \\   |    |   \r\n \\ \\           | /     /\\      ||   |  |    |          |      /  |___|  \\      | \\|____\\  \\___|/ \\\\    \\  |    |   \r\n  \\ \\____      ||     |  |     ||    \\_/   /|          |      |  |   |  |      |       |  |       \\|    \\ |    |   \r\n   \\|___/     /||     |  |     ||\\         \\|          |       \\ \\   / /       |  __  /   / __     |     \\|    |   \r\n       /     / ||     | /     /|| \\         \\__        |      |\\\\/   \\//|      | /  \\/   /_/  |   /     /\\      \\  \r\n      /_____/  /|\\     \\_____/ | \\ \\_____/\\    \\       |\\_____\\|\\_____/|/_____/||____________/|  /_____/ /______/| \r\n      |     | / | \\_____\\   | /   \\ |    |/___/|       | |     | |   | |     | ||           | / |      | |     | | \r\n      |_____|/   \\ |    |___|/     \\|____|   | |        \\|_____|\\|___|/|_____|/ |___________|/  |______|/|_____|/  \r\n                  \\|____|                |___|/                                                                    ";
     
